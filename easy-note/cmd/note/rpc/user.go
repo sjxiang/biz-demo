@@ -2,44 +2,42 @@ package rpc
 
 import (
 	"context"
-	"time"
 
-	"github.com/cloudwego/kitex/client"
-	"github.com/cloudwego/kitex/pkg/retry"
-	etcd "github.com/kitex-contrib/registry-etcd"
+	"google.golang.org/grpc"
 
-	"github.com/sjxiang/biz-demo/easy-note/kitex_gen/user"
-	"github.com/sjxiang/biz-demo/easy-note/kitex_gen/user/userservice"
+	pb "github.com/sjxiang/biz-demo/easy-note/gen/user"
 	"github.com/sjxiang/biz-demo/easy-note/pkg/consts"
 	"github.com/sjxiang/biz-demo/easy-note/pkg/errno"
-	"github.com/sjxiang/biz-demo/easy-note/pkg/middleware"
 )
 
-var userClient userservice.Client
+var userClient pb.UserServiceClient
 
 func initUserRpc() {
-	r, err := etcd.NewEtcdResolver([]string{consts.EtcdAddress})
+
+	cc, err := grpc.Dial(consts.UserServiceAddr, grpc.WithInsecure())
 	if err != nil {
 		panic(err)
 	}
 
-	c, err := userservice.NewClient(
-		consts.UserServiceName,
-		client.WithMiddleware(middleware.CommonMiddleware),
-		client.WithMuxConnection(1),                       // mux
-		client.WithRPCTimeout(3*time.Second),              // rpc timeout
-		client.WithConnectTimeout(50*time.Millisecond),    // conn timeout
-		client.WithFailureRetry(retry.NewFailurePolicy()), // retry
-		client.WithResolver(r),                            // resolver
-	)
-	if err != nil {
-		panic(err)
-	}
-	userClient = c
+	userClient = pb.NewUserServiceClient(cc)
+
+	// r, err := etcd.NewEtcdResolver([]string{consts.EtcdAddress})
+	// if err != nil {
+	// 	panic(err)
+	// }
+// 	// cc, err := userservice.NewClient(
+	// 	consts.UserServiceName,
+	// 	client.WithMiddleware(middleware.CommonMiddleware),
+	// 	client.WithMuxConnection(1),                       // mux
+	// 	client.WithRPCTimeout(3*time.Second),              // rpc timeout
+	// 	client.WithConnectTimeout(50*time.Millisecond),    // conn timeout
+	// 	client.WithFailureRetry(retry.NewFailurePolicy()), // retry
+	// 	client.WithResolver(r),                            // resolver
+	// )
 }
 
 // MGetUser multiple get list of user info
-func MGetUser(ctx context.Context, req *user.MGetUserRequest) (map[int64]*user.User, error) {
+func MGetUser(ctx context.Context, req *pb.MGetUserRequest) (map[int64]*pb.User, error) {
 	resp, err := userClient.MGetUser(ctx, req)
 	if err != nil {
 		return nil, err
@@ -47,7 +45,7 @@ func MGetUser(ctx context.Context, req *user.MGetUserRequest) (map[int64]*user.U
 	if resp.BaseResp.StatusCode != 0 {
 		return nil, errno.NewErrNo(resp.BaseResp.StatusCode, resp.BaseResp.StatusMessage)
 	}
-	res := make(map[int64]*user.User)
+	res := make(map[int64]*pb.User)
 	for _, u := range resp.Users {
 		res[u.UserId] = u
 	}

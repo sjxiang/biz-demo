@@ -6,7 +6,7 @@ import (
 	"gorm.io/gorm"
 )
 
-
+// 数据库操作
 type Note struct {
 	gorm.Model
 

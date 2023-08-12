@@ -6,21 +6,19 @@ import (
 	"github.com/sjxiang/biz-demo/easy-note/cmd/note/dal/db"
 	"github.com/sjxiang/biz-demo/easy-note/cmd/note/pack"
 	"github.com/sjxiang/biz-demo/easy-note/cmd/note/rpc"
-	"github.com/sjxiang/biz-demo/easy-note/kitex_gen/note"
-	"github.com/sjxiang/biz-demo/easy-note/kitex_gen/user"
+	pb "github.com/sjxiang/biz-demo/easy-note/gen/note"
+	proto "github.com/sjxiang/biz-demo/easy-note/gen/user"
 )
 
 type MGetNoteService struct {
 	ctx context.Context
 }
 
-// NewMGetNoteService new MGetNoteService
 func NewMGetNoteService(ctx context.Context) *MGetNoteService {
 	return &MGetNoteService{ctx: ctx}
 }
 
-// MGetNote multiple get list of note info
-func (s *MGetNoteService) MGetNote(req *note.MGetNoteRequest) ([]*note.Note, error) {
+func (s *MGetNoteService) MGetNote(req *pb.MGetNoteRequest) ([]*pb.Note, error) {
 	// 获取笔记信息
 	noteModels, err := db.MGetNotes(s.ctx, req.NoteIds)
 	if err != nil {
@@ -29,7 +27,7 @@ func (s *MGetNoteService) MGetNote(req *note.MGetNoteRequest) ([]*note.Note, err
 
 	// 获取用户信息
 	uIds := pack.UserIds(noteModels)
-	userMap, err := rpc.MGetUser(s.ctx, &user.MGetUserRequest{UserIds: uIds})
+	userMap, err := rpc.MGetUser(s.ctx, &proto.MGetUserRequest{UserIds: uIds})
 	if err != nil {
 		return nil, err
 	}

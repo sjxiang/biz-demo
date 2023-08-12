@@ -2,21 +2,20 @@ package pack
 
 import (
 	"github.com/sjxiang/biz-demo/easy-note/cmd/note/dal/db"
-	"github.com/sjxiang/biz-demo/easy-note/kitex_gen/note"
+	pb "github.com/sjxiang/biz-demo/easy-note/gen/note"
 )
 
 // 序列化
 
-// Note pack note info
 // po 转 dto
-func Note(m *db.Note) *note.Note {
+func Note(m *db.Note) *pb.Note {
 	
 	// 判空处理
 	if m == nil {
 		return nil
 	}
 
-	return &note.Note{
+	return &pb.Note{
 		NoteId:     int64(m.ID),
 		UserId:     m.UserID,
 		Title:      m.Title,
@@ -26,8 +25,8 @@ func Note(m *db.Note) *note.Note {
 }
 
 // Notes pack list of note info
-func Notes(ms []*db.Note) []*note.Note {
-	notes := make([]*note.Note, 0, len(ms))
+func Notes(ms []*db.Note) []*pb.Note {
+	notes := make([]*pb.Note, 0, len(ms))
 	for _, m := range ms {
 		if n := Note(m); n != nil {
 			notes = append(notes, n)

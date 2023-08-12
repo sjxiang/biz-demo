@@ -4,12 +4,12 @@ import (
 	"errors"
 	"time"
 
-	"github.com/sjxiang/biz-demo/easy-note/kitex_gen/note"
+	pb "github.com/sjxiang/biz-demo/easy-note/gen/note"
 	"github.com/sjxiang/biz-demo/easy-note/pkg/errno"
 )
 
 // BuildBaseResp build baseResp from error
-func BuildBaseResp(err error) *note.BaseResp {
+func BuildBaseResp(err error) *pb.BaseResp {
 	if err == nil {
 		return baseResp(errno.Success)
 	}
@@ -23,9 +23,9 @@ func BuildBaseResp(err error) *note.BaseResp {
 	return baseResp(s)
 }
 
-func baseResp(err errno.ErrNo) *note.BaseResp {
+func baseResp(err errno.ErrNo) *pb.BaseResp {
 	
-	return &note.BaseResp{
+	return &pb.BaseResp{
 		StatusCode:    err.ErrCode, 
 		StatusMessage: err.ErrMsg, 
 		ServiceTime:   time.Now().Unix(),

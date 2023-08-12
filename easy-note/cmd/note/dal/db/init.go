@@ -13,7 +13,7 @@ import (
 
 var DB *gorm.DB
 
-// Init init DB
+// 初始化 db
 func Init() {
 	var err error
 	gormlogrus := logger.New(

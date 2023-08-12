@@ -43,12 +43,14 @@ req    resp                            │                                   res
 
 ```shell
 $ cd easy-note
-...
 
-$ kitex -module github.com/sjxiang/biz-demo  ./idl/note.proto
-$ kitex -module github.com/sjxiang/biz-demo  ./idl/user.proto
+# 结合 pb 文件，考虑
+$ protoc --go_out=. --go-grpc_out=. ./idl/note.proto
+$ protoc --go_out=. --go-grpc_out=. ./idl/user.proto
 
 ```
+
+
 ### 2.Run Note RPC Server
 ```shell
 cd cmd/note
