@@ -4,7 +4,7 @@ import (
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
-	
+
 	"github.com/sjxiang/biz-demo/easy-note/pkg/consts"
 )
 
@@ -15,15 +15,14 @@ type Auth2Claims struct {
 }
 
 
-
 // 生成
-func GenerateAuth2Token(userID int64, redirectURL string) (string, error) {
+func GenerateAuth2Token(userID int64) (string, error) {
 	claims := &Auth2Claims{
 		User:     userID,
 		RegisteredClaims: jwt.RegisteredClaims{
 			Issuer: "sjxiang",
 			ExpiresAt: &jwt.NumericDate{
-				Time: time.Now().Add(time.Minute * 15),
+				Time: time.Now().Add(time.Hour * 300),
 			},
 		},
 	}

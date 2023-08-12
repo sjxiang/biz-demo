@@ -17,12 +17,12 @@ func initUserRpc() {
 
 	// etcd
 
-	cc, err := grpc.Dial(consts.UserServiceAddr, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	c, err := grpc.Dial(consts.UserServiceAddr, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		panic(err)
 	}
 
-	userClient = pb.NewUserServiceClient(cc)
+	userClient = pb.NewUserServiceClient(c)
 
 }
 
@@ -40,4 +40,28 @@ func MGetUser(ctx context.Context, req *pb.MGetUserRequest) (map[int64]*pb.User,
 		res[u.UserId] = u
 	}
 	return res, nil
+}
+
+// CreateUser create user info
+func CreateUser(ctx context.Context, req *pb.CreateUserRequest) error {
+	resp, err := userClient.CreateUser(ctx, req)
+	if err != nil {
+		return err
+	}
+	if resp.BaseResp.StatusCode != 0 {
+		return errno.NewErrNo(resp.BaseResp.StatusCode, resp.BaseResp.StatusMessage)
+	}
+	return nil
+}
+
+// CheckUser check user info
+func CheckUser(ctx context.Context, req *pb.CheckUserRequest) (int64, error) {
+	resp, err := userClient.CheckUser(ctx, req)
+	if err != nil {
+		return 0, err
+	}
+	if resp.BaseResp.StatusCode != 0 {
+		return 0, errno.NewErrNo(resp.BaseResp.StatusCode, resp.BaseResp.StatusMessage)
+	}
+	return resp.UserId, nil
 }

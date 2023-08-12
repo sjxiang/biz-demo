@@ -17,15 +17,17 @@ func Init() {
 }
 
 func main() {
-	li, err := net.Listen("tcp", consts.NoteServiceAddr)
+	ln, err := net.Listen("tcp", consts.NoteServiceAddr)
 	if err != nil {
 		panic(err)
 	}
 	
+	Init()
+
 	svr := grpc.NewServer()
 	pb.RegisterNoteServiceServer(svr, new(NoteServiceImpl))
 	
-	if err := svr.Serve(li); err != nil {
+	if err := svr.Serve(ln); err != nil {
 		panic(err)
 	}
 }

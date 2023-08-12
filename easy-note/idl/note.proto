@@ -1,6 +1,6 @@
 
 syntax = "proto3";
-package note;  // 代码生成的 package 名
+package note;  // 代码生成的 package 名，e.g. pb
 option go_package = "/gen/note";  // 输出到哪个路径下
 
 message BaseResp {

@@ -20,6 +20,7 @@ func NewQueryNoteService(ctx context.Context) *QueryNoteService {
 }
 
 func (s *QueryNoteService) QueryNoteService(req *pb.QueryNoteRequest) ([]*pb.Note, int64, error) {
+	
 	// 查询笔记信息
 	noteModels, total, err := db.QueryNote(s.ctx, req.UserId, req.SearchKey, int(req.Limit), int(req.Offset))
 	if err != nil {

@@ -9,6 +9,7 @@ const (
 	ApiServiceName          = "demo-api"
 	NoteServiceName         = "demo-note"
 	UserServiceName         = "demo-user"
+	ApiServiceAddr          = ":8080"
 	UserServiceAddr         = ":9000"
 	NoteServiceAddr         = ":10000"
 	MySQLDefaultDSN         = "root:123456@tcp(localhost:13306)/easy-note?charset=utf8&parseTime=True&loc=Local"
