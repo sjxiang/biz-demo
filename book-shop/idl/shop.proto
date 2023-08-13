@@ -1,0 +1,260 @@
+syntax = "proto3";
+package pb; 
+option go_package = "/grpc_gen/pb"; 
+
+
+message BaseResp {
+    int64 status_code = 1;
+    string status_message = 2;
+    int64 service_time = 3;
+    map<string, string> extra = 4;
+}
+
+enum ProductStatus {
+    Online  = 0;  // 上架
+    Offline = 1;  // 下架
+    Delete  = 2;  // 删除
+}
+
+// dto
+message BookProperty {
+    string isbn = 1;     // ISBN
+    string spu_name = 2; // 书名
+    int64 spu_price = 3; // 定价
+}
+
+message Product {
+    int64 product_id = 1;
+    string name = 2;            // 商品名
+    string pic = 3;             // 主图
+    string description = 4;     // 详情
+    BookProperty property = 5;  // 属性
+    int64 price = 6;            // 价格
+    int64 stock = 7;            // 库存
+    ProductStatus status = 8;          // 商品状态
+}
+
+message AddReq {
+    string name = 1;            // 商品名
+    string pic = 2;             // 主图
+    string description = 3;     // 详情
+    BookProperty property = 4;  // 属性
+    int64 price = 5;            // 价格
+    int64 stock = 6;            // 库存
+}
+
+message AddResp {
+    int64 product_id = 1;
+    BaseResp base_resp = 2;
+}
+
+message EditReq {    
+    int64 product_id = 1;                // 默认，必选
+    optional string name = 2;            // 商品名（optional，可选）
+    optional string pic = 3;             // 主图
+    optional string description = 4;     // 详情
+    optional BookProperty property = 5;  // 属性
+    optional int64 price = 6;             // 价格
+    optional int64 stock = 7;            // 库存
+}
+
+message EditResp {
+    BaseResp base_resp = 1;
+}
+
+message DeleteReq {
+    int64 product_id = 1;
+}
+
+message DeleteResp {
+    BaseResp base_resp = 1;
+}
+
+message OnlineReq {
+    int64 product_id = 1;
+}
+
+message OnlineResp {
+    BaseResp base_resp = 1;
+}
+
+message OfflineReq {
+    int64 product_id = 1;
+}
+
+message OfflineResp {
+    BaseResp base_resp = 1;
+}
+
+message GetReq {
+    int64 product_id = 1;
+}
+
+message GetResp {
+    Product product = 1;
+    BaseResp base_resp = 2;
+}
+
+message MGet2CReq {
+    repeated int64 product_ids = 1;
+}
+
+message MGet2CResp {
+    map<int64, Product> product_map = 1;
+    BaseResp base_resp = 2;
+}
+
+message SearchReq {
+    optional string name = 1;
+    optional string description = 2;
+    optional string spu_name = 3;
+}
+
+message SearchResp {
+    repeated Product products = 1;
+    BaseResp base_resp = 2;
+}
+
+message ListReq {
+    optional string name = 1;
+    optional string spu_name = 2;
+    optional ProductStatus status = 3;
+}
+
+message ListResp {
+    repeated Product products = 1;
+    BaseResp base_resp = 2;
+}
+
+message DecrStockReq {
+    int64 product_id = 1;
+    int64 stock_num = 2;
+}
+
+message DecrStockResp {
+    BaseResp base_resp = 1;
+}
+
+service ItemService {
+    rpc Add (AddReq) returns (AddResp);                          // 添加商品
+    rpc Edit (EditReq) returns (EditResp);                       // 编辑商品
+    rpc Delete (DeleteReq) returns (DeleteResp);                 // 删除商品
+    rpc Online (OnlineReq) returns (OnlineResp);                 // 上架商品
+    rpc Offline (OfflineReq) returns (OfflineResp);              // 下架商品
+    rpc Get (GetReq) returns (GetResp);                          // 查询商品 2B
+    rpc MGet2C (MGet2CReq) returns (MGet2CResp);                 // 批量查询商品 2C
+    rpc Search (SearchReq) returns (SearchResp);                 // 搜索商品 c端
+    rpc List (ListReq) returns (ListResp);                       // 商品列表 b端
+    rpc DecrStock (DecrStockReq) returns (DecrStockResp);        // 扣减库存
+    rpc DecrStockRevert (DecrStockReq) returns (DecrStockResp);  // 库存返还
+}
+
+
+enum OrderStatus {
+    Finish = 0;   // 结束
+    Cancel = 1;   // 取消
+    Pending = 2;  // 待处理
+}
+
+message OrderItem {
+    int64 order_id = 1;
+    int64 user_id = 2;
+    string user_name = 3;
+    string address = 4;
+    int64 product_id = 5;
+    int64 stock_num = 6;
+    string product_snapshot = 7;
+    OrderStatus status = 8;
+    int64 create_time = 9;
+    int64 update_time = 10;
+}
+
+message CreateOrderReq {
+    int64 user_id = 1;
+    string address = 2;
+    int64 product_id = 3;
+    int64 stock_num = 4;
+}
+
+message CreateOrderResp {
+    BaseResp base_resp = 1;
+}
+
+message CancelOrderReq {
+    int64 order_id = 1;
+}
+
+message CancelOrderResp {
+    BaseResp base_resp = 1;
+}
+
+message ListOrderReq {
+    int64 user_id = 1;
+    optional OrderStatus status = 2;
+}
+
+message ListOrderResp {
+    repeated OrderItem orders = 1;
+    BaseResp base_resp = 2;
+}
+
+message GetOrderByIdReq {
+    int64 order_id = 1;
+}
+
+message GetOrderByIdResp {
+    OrderItem order = 1;
+    BaseResp base_resp = 2;
+}
+
+service OrderService {
+    rpc CreateOrder (CreateOrderReq) returns (CreateOrderResp);  // 创建订单
+    rpc CancelOrder (CancelOrderReq) returns (CancelOrderResp);  // 取消订单
+    rpc ListOrder (ListOrderReq) returns (ListOrderResp);        // 订单列表
+    rpc GetOrderById(GetOrderByIdReq) returns (ListOrderResp);   // 订单详情
+}
+
+
+
+message User {
+    int64 user_id = 1;
+    string user_name = 2;
+    // string avatar = 3;  // 待定，看后续
+}
+
+message CreateUserRequest {
+    string user_name = 1;
+    string password = 2;
+}
+
+message CreateUserResponse {
+    BaseResp base_resp = 1;
+}
+
+message MGetUserRequest {
+    repeated int64 user_ids = 1;
+}
+
+message MGetUserResponse {
+    repeated User users = 1;
+    BaseResp base_resp = 2;
+}
+
+message CheckUserRequest {
+    string user_name = 1;
+    string password = 2;
+}
+
+message CheckUserResponse{
+    int64 user_id = 1;
+    BaseResp base_resp = 2;
+}
+
+service UserService {
+    // 消费者端账户服务
+
+    rpc CreateUser (CreateUserRequest) returns (CreateUserResponse) {}
+    rpc MGetUser (MGetUserRequest) returns (MGetUserResponse) {}
+    rpc CheckUser (CheckUserRequest) returns (CheckUserResponse) {}
+}
+
