@@ -6,7 +6,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 
 	"github.com/sjxiang/biz-demo/easy-note/cmd/user/dal/db"
-	pb "github.com/sjxiang/biz-demo/easy-note/gen/user"
+	"github.com/sjxiang/biz-demo/easy-note/gen/pb"
 	"github.com/sjxiang/biz-demo/easy-note/pkg/errno"
 )
 

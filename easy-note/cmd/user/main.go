@@ -7,8 +7,8 @@ import (
 	"google.golang.org/grpc"
 
 	"github.com/sjxiang/biz-demo/easy-note/cmd/user/dal"
-	pb "github.com/sjxiang/biz-demo/easy-note/gen/user"
 	"github.com/sjxiang/biz-demo/easy-note/pkg/consts"
+	"github.com/sjxiang/biz-demo/easy-note/gen/pb"
 )
 
 

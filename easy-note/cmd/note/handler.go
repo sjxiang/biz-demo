@@ -5,9 +5,9 @@ import (
 
 	"github.com/sjxiang/biz-demo/easy-note/cmd/note/pack"
 	"github.com/sjxiang/biz-demo/easy-note/cmd/note/service"
-	pb "github.com/sjxiang/biz-demo/easy-note/gen/note"
 	"github.com/sjxiang/biz-demo/easy-note/pkg/consts"
 	"github.com/sjxiang/biz-demo/easy-note/pkg/errno"
+	"github.com/sjxiang/biz-demo/easy-note/gen/pb"
 )
 
 // 请求参数校验，错误统一处理

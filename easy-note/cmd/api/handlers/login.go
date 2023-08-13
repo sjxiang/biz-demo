@@ -8,7 +8,7 @@ import (
 	"github.com/sjxiang/biz-demo/easy-note/pkg/errno"
 	"github.com/sjxiang/biz-demo/easy-note/pkg/jwt"
 	"github.com/sjxiang/biz-demo/easy-note/cmd/api/rpc"
-	pb "github.com/sjxiang/biz-demo/easy-note/gen/user"
+	"github.com/sjxiang/biz-demo/easy-note/gen/pb"
 )
 
 

@@ -6,8 +6,8 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"github.com/sjxiang/biz-demo/easy-note/cmd/api/rpc"
-	pb "github.com/sjxiang/biz-demo/easy-note/gen/note"
 	"github.com/sjxiang/biz-demo/easy-note/pkg/errno"
+	"github.com/sjxiang/biz-demo/easy-note/gen/pb"
 )
 
 // QueryNote query list of note info

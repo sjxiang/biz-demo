@@ -9,7 +9,7 @@ import (
 
 	"github.com/sjxiang/biz-demo/easy-note/cmd/api/rpc"
 	"github.com/sjxiang/biz-demo/easy-note/pkg/errno"
-	pb "github.com/sjxiang/biz-demo/easy-note/gen/note"
+	"github.com/sjxiang/biz-demo/easy-note/gen/pb"
 )
 
 // UpdateNote update user info

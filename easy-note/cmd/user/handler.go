@@ -5,8 +5,8 @@ import (
 
 	"github.com/sjxiang/biz-demo/easy-note/cmd/user/service"
 	"github.com/sjxiang/biz-demo/easy-note/cmd/user/pack"
-	pb "github.com/sjxiang/biz-demo/easy-note/gen/user"
 	"github.com/sjxiang/biz-demo/easy-note/pkg/errno"
+	"github.com/sjxiang/biz-demo/easy-note/gen/pb"
 )
 
 type UserServiceImpl struct{

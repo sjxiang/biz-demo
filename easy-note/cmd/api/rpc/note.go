@@ -6,7 +6,7 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 
-	pb "github.com/sjxiang/biz-demo/easy-note/gen/note"
+	"github.com/sjxiang/biz-demo/easy-note/gen/pb"
 	"github.com/sjxiang/biz-demo/easy-note/pkg/consts"
 	"github.com/sjxiang/biz-demo/easy-note/pkg/errno"
 )

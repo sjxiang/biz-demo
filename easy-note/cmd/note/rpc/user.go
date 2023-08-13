@@ -6,9 +6,9 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 
-	pb "github.com/sjxiang/biz-demo/easy-note/gen/user"
 	"github.com/sjxiang/biz-demo/easy-note/pkg/consts"
 	"github.com/sjxiang/biz-demo/easy-note/pkg/errno"
+	"github.com/sjxiang/biz-demo/easy-note/gen/pb"
 )
 
 var userClient pb.UserServiceClient

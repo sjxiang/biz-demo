@@ -46,7 +46,7 @@ req    resp                            │                                   res
 $ cd easy-note
 
 # 结合 pb 文件，考虑
-$ protoc --go_out=. --go-grpc_out=. ./idl/note.proto
+$ protoc --go_out=. --go-grpc_out=. ./idl/easy_note.proto
 $ protoc --go_out=. --go-grpc_out=. ./idl/user.proto
 
 ```

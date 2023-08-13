@@ -7,7 +7,7 @@ import (
 
 	"github.com/sjxiang/biz-demo/easy-note/cmd/api/rpc"
 	"github.com/sjxiang/biz-demo/easy-note/pkg/errno"
-	proto "github.com/sjxiang/biz-demo/easy-note/gen/user"
+	"github.com/sjxiang/biz-demo/easy-note/gen/pb"
 )
 
 // Register register user info
@@ -23,7 +23,7 @@ func Register(ctx *gin.Context) {
 		return
 	}
 
-	err := rpc.CreateUser(context.Background(), &proto.CreateUserRequest{
+	err := rpc.CreateUser(context.Background(), &pb.CreateUserRequest{
 		UserName: registerVar.UserName,
 		Password: registerVar.PassWord,
 	})

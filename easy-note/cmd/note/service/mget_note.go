@@ -6,8 +6,7 @@ import (
 	"github.com/sjxiang/biz-demo/easy-note/cmd/note/dal/db"
 	"github.com/sjxiang/biz-demo/easy-note/cmd/note/pack"
 	"github.com/sjxiang/biz-demo/easy-note/cmd/note/rpc"
-	pb "github.com/sjxiang/biz-demo/easy-note/gen/note"
-	proto "github.com/sjxiang/biz-demo/easy-note/gen/user"
+	"github.com/sjxiang/biz-demo/easy-note/gen/pb"
 )
 
 type MGetNoteService struct {
@@ -27,7 +26,7 @@ func (s *MGetNoteService) MGetNote(req *pb.MGetNoteRequest) ([]*pb.Note, error) 
 
 	// 获取用户信息
 	uIds := pack.UserIds(noteModels)
-	userMap, err := rpc.MGetUser(s.ctx, &proto.MGetUserRequest{UserIds: uIds})
+	userMap, err := rpc.MGetUser(s.ctx, &pb.MGetUserRequest{UserIds: uIds})
 	if err != nil {
 		return nil, err
 	}

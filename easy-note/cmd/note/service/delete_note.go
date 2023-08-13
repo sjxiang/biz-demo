@@ -5,7 +5,7 @@ import (
 
 	
 	"github.com/sjxiang/biz-demo/easy-note/cmd/note/dal/db"
-	pb "github.com/sjxiang/biz-demo/easy-note/gen/note"
+	"github.com/sjxiang/biz-demo/easy-note/gen/pb"
 )
 
 type DelNoteService struct {

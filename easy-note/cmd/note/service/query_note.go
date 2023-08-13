@@ -7,8 +7,7 @@ import (
 	"github.com/sjxiang/biz-demo/easy-note/cmd/note/dal/db"
 	"github.com/sjxiang/biz-demo/easy-note/cmd/note/pack"
 	"github.com/sjxiang/biz-demo/easy-note/cmd/note/rpc"
-	pb "github.com/sjxiang/biz-demo/easy-note/gen/note"
-	proto "github.com/sjxiang/biz-demo/easy-note/gen/user"
+	"github.com/sjxiang/biz-demo/easy-note/gen/pb"
 )
 
 type QueryNoteService struct {
@@ -28,7 +27,7 @@ func (s *QueryNoteService) QueryNoteService(req *pb.QueryNoteRequest) ([]*pb.Not
 	}
 
 	// 查询用户信息
-	userMap, err := rpc.MGetUser(s.ctx, &proto.MGetUserRequest{UserIds: []int64{req.UserId}})
+	userMap, err := rpc.MGetUser(s.ctx, &pb.MGetUserRequest{UserIds: []int64{req.UserId}})
 	if err != nil {
 		return nil, 0, err
 	}

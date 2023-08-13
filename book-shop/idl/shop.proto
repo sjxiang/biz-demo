@@ -1,7 +1,9 @@
 syntax = "proto3";
-package pb; 
-option go_package = "/grpc_gen/pb"; 
+package pb;   // 代码生成的 package name
+option go_package = "/grpc_gen/pb";  // 输出到哪个路径下
 
+
+// base.proto
 
 message BaseResp {
     int64 status_code = 1;
@@ -10,13 +12,15 @@ message BaseResp {
     map<string, string> extra = 4;
 }
 
+
+// item.proto
+
 enum ProductStatus {
     Online  = 0;  // 上架
     Offline = 1;  // 下架
     Delete  = 2;  // 删除
 }
 
-// dto
 message BookProperty {
     string isbn = 1;     // ISBN
     string spu_name = 2; // 书名
@@ -150,6 +154,8 @@ service ItemService {
 }
 
 
+// order.proto
+
 enum OrderStatus {
     Finish = 0;   // 结束
     Cancel = 1;   // 取消
@@ -215,6 +221,7 @@ service OrderService {
 }
 
 
+// user.proto
 
 message User {
     int64 user_id = 1;

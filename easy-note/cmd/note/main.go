@@ -7,8 +7,8 @@ import (
 
 	"github.com/sjxiang/biz-demo/easy-note/cmd/note/dal"
 	"github.com/sjxiang/biz-demo/easy-note/cmd/note/rpc"
-	pb "github.com/sjxiang/biz-demo/easy-note/gen/note"
 	"github.com/sjxiang/biz-demo/easy-note/pkg/consts"
+	"github.com/sjxiang/biz-demo/easy-note/gen/pb"
 )
 
 func Init() {

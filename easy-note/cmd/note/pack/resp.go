@@ -4,8 +4,8 @@ import (
 	"errors"
 	"time"
 
-	pb "github.com/sjxiang/biz-demo/easy-note/gen/note"
 	"github.com/sjxiang/biz-demo/easy-note/pkg/errno"
+	"github.com/sjxiang/biz-demo/easy-note/gen/pb"
 )
 
 // BuildBaseResp build baseResp from error

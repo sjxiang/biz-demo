@@ -4,7 +4,7 @@ import (
 	
 
 	"github.com/sjxiang/biz-demo/easy-note/cmd/user/dal/db"
-	pb "github.com/sjxiang/biz-demo/easy-note/gen/user"
+	"github.com/sjxiang/biz-demo/easy-note/gen/pb"
 )
 
 // User pack user info
