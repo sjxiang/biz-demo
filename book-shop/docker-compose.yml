@@ -1,0 +1,54 @@
+version: '3.7'
+
+services:
+  mysql:
+    image: 'mysql:latest'
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./script/mysql:/docker-entrypoint-initdb.d
+    environment:
+      - MYSQL_DATABASE=shop
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=123456
+      - MYSQL_RANDOM_ROOT_PASSWORD="yes"
+
+  Etcd:
+    image: 'bitnami/etcd:latest'
+    environment:
+      - ALLOW_NONE_AUTHENTICATION=yes
+    ports:
+      - "2379:2379"
+
+  elasticsearch:
+    container_name: elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch-oss:7.10.2
+    environment:
+      - "cluster.name=elasticsearch"      # 设置集群名称为 elasticsearch
+      - "discovery.type=single-node"      # 以单一节点模式启动
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"  # 设置使用 jvm 内存大小
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana-oss:7.10.2
+    links:
+      - elasticsearch:es # 可以用 es 这个域名访问 elasticsearch 服务
+    depends_on:
+      - elasticsearch    # kibana 在 elasticsearch 启动之后再启动
+    environment:
+      - "elasticsearch.hosts=http://es:9200"  # 设置访问 elasticsearch 的地址
+    ports:
+      - "5601:5601"
+
+  redis:
+    image: redis:latest
+    restart: always
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./script/redis/redis.conf:/etc/redis/redis.conf
+    command: redis-server /etc/redis/redis.conf
+    privileged: true

@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"net/http"
 	"context"
 
 	"github.com/gin-gonic/gin"
@@ -31,15 +30,12 @@ func Login(ctx *gin.Context) {
 		return
 	}
 
+	// 生成 jwt
 	token, err := jwt.GenerateAuth2Token(uid)
 	if err != nil {
 		SendResponse(ctx, errno.ConvertErr(err), nil)
 		return
 	}
 
-	ctx.JSON(http.StatusOK, gin.H{
-		"code":   errno.SuccessCode,
-		"token":  token,
-	})
-
+	SendResponse(ctx, errno.Success, map[string]interface{}{"token":  token})
 }

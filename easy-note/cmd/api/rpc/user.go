@@ -15,7 +15,7 @@ var userClient pb.UserServiceClient
 
 func initUserRpc() {
 
-	// etcd
+	// etcd 服务发现
 
 	c, err := grpc.Dial(consts.UserServiceAddr, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {

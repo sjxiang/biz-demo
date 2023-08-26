@@ -25,6 +25,8 @@ message BookProperty {
     string isbn = 1;     // ISBN
     string spu_name = 2; // 书名
     int64 spu_price = 3; // 定价
+
+    // 精简了很多，类目属性，比如计算机（网络、编程语言）、人文
 }
 
 message Product {
@@ -35,7 +37,9 @@ message Product {
     BookProperty property = 5;  // 属性
     int64 price = 6;            // 价格
     int64 stock = 7;            // 库存
-    ProductStatus status = 8;          // 商品状态
+    ProductStatus status = 8;   // 商品状态
+
+    // 也精简了很多
 }
 
 message AddReq {
@@ -58,7 +62,7 @@ message EditReq {
     optional string pic = 3;             // 主图
     optional string description = 4;     // 详情
     optional BookProperty property = 5;  // 属性
-    optional int64 price = 6;             // 价格
+    optional int64 price = 6;            // 价格
     optional int64 stock = 7;            // 库存
 }
 
@@ -147,8 +151,8 @@ service ItemService {
     rpc Offline (OfflineReq) returns (OfflineResp);              // 下架商品
     rpc Get (GetReq) returns (GetResp);                          // 查询商品 2B
     rpc MGet2C (MGet2CReq) returns (MGet2CResp);                 // 批量查询商品 2C
-    rpc Search (SearchReq) returns (SearchResp);                 // 搜索商品 c端
-    rpc List (ListReq) returns (ListResp);                       // 商品列表 b端
+    rpc Search (SearchReq) returns (SearchResp);                 // 搜索商品 2C
+    rpc List (ListReq) returns (ListResp);                       // 商品列表 2B
     rpc DecrStock (DecrStockReq) returns (DecrStockResp);        // 扣减库存
     rpc DecrStockRevert (DecrStockReq) returns (DecrStockResp);  // 库存返还
 }

@@ -14,7 +14,9 @@ import (
 var noteClient pb.NoteServiceClient
 
 func initNoteRpc() {
-	// etcd
+
+	// etcd 服务发现
+	
 	c, err := grpc.Dial(consts.NoteServiceAddr, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		panic(err)

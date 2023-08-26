@@ -10,8 +10,8 @@ import (
 
 type Response struct {
 	Code    int64       `json:"code"`
-	Message string      `json:"message"`
-	Data    interface{} `json:"data"`
+	Message string      `json:"message"`  // 和 error 通用
+	Data    interface{} `json:"data,omitempty"`
 }
 
 // SendResponse pack response

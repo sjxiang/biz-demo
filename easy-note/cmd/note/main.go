@@ -17,6 +17,9 @@ func Init() {
 }
 
 func main() {
+	
+	// etcd 服务注册
+	
 	ln, err := net.Listen("tcp", consts.NoteServiceAddr)
 	if err != nil {
 		panic(err)

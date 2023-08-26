@@ -2,6 +2,35 @@
 # easy-note
 
 
+```shell
+$ tree
+├─cmd
+│  ├─api
+│  │  ├─handlers
+│  │  ├─middleware
+│  │  └─rpc
+│  ├─note
+│  │  ├─dal      # 数据库操作 
+│  │  │  └─db
+│  │  ├─pack     # 数据包装
+│  │  ├─rpc      # RPC 调用逻辑
+│  │  └─service  # 主要业务逻辑
+│  └─user
+│      ├─dal
+│      │  └─db
+│      ├─pack
+│      └─service
+├─gen
+│  └─pb
+├─idl 
+└─pkg
+   ├─consts  # 常量
+   ├─errno   # 自定义错误
+   ├─jwt     # jwt 扩展
+   └─script  # SQL 配置
+
+```
+
 ## 架构图
 
 ```text
