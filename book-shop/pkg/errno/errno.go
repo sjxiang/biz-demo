@@ -8,9 +8,10 @@ import (
 
 const (
 	// System Code
-	SuccessCode    = 0
-	ServiceErrCode = 10001
-	ParamErrCode   = 10002
+	SuccessCode       = 0
+	ServiceErrCode    = 10001
+	ParamErrCode      = 10002
+	BadRequestErrCode = 10003
 
 	// User ErrCode
 	LoginErrCode            = 11001
@@ -40,6 +41,7 @@ var (
 	Success             = NewErrNo(SuccessCode, "Success")
 	ServiceErr          = NewErrNo(ServiceErrCode, "Service is unable to start successfully")
 	ParamErr            = NewErrNo(ParamErrCode, "Wrong Parameter has been given")
+	BadRequestErr       = NewErrNo(BadRequestErrCode, "请求解析错误")
 	LoginErr            = NewErrNo(LoginErrCode, "Wrong username or password")
 	UserNotExistErr     = NewErrNo(UserNotExistErrCode, "User does not exists")
 	UserAlreadyExistErr = NewErrNo(UserAlreadyExistErrCode, "User already exists")
@@ -48,11 +50,12 @@ var (
 // 错误统一处理
 func ConvertErr(err error) ErrNo {
 	Err := ErrNo{}
-	if errors.As(err, &Err) {
+	if errors.As(err, &Err) {  // 用于检查 error chain 中的每个错误是否可以转换为特定类型
 		return Err
 	}
 
-	s := ServiceErr
+	// 默认，系统内部错误，常量
+	s := ServiceErr  
 	s.ErrMsg = err.Error()
 	return s
 }
